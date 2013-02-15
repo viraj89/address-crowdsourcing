@@ -79,5 +79,5 @@ limitations under the License.
 A copy of the license is available in the repository's
 [license.txt](https://raw.github.com/Esri/community-addressing/master/license.txt) file.
 
-[](Esri Tags: Local Government community addressing)
+[](Esri Tags: Local Government Community Addressing)
 [](Esri Language: JavaScript)
