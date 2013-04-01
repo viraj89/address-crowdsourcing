@@ -1,0 +1,905 @@
+﻿/*
+ | Version 10.2
+ | Copyright 2012 Esri
+ |
+ | Licensed under the Apache License, Version 2.0 (the "License");
+ | you may not use this file except in compliance with the License.
+ | You may obtain a copy of the License at
+ |
+ |    http://www.apache.org/licenses/LICENSE-2.0
+ |
+ | Unless required by applicable law or agreed to in writing, software
+ | distributed under the License is distributed on an "AS IS" BASIS,
+ | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ | See the License for the specific language governing permissions and
+ | limitations under the License.
+ */
+/* This file contains the style settings for "Address Crowd Sourcing" template */
+/* Use this file to perform the following: */
+
+/* 1. Set the body styles                      - { Style(s) to look for: html, body } */
+/* 2.  Set styles for splash screen            - { Style(s) to look for: divSplashScreenContainer,divSplashScreenContent,divSplashScreenDialogContent,divSplashContainer,divSplashContent
+                                                                          customButton,customButtonInner } */
+/* 3.  Set the styles for animations           - { Style(s) to look for: showContainer,hideContainer,
+                                                                          opacityHideAnimation,hideContainerHeight,showContainerHeight,esriLogo}*/
+/* 4. Set the header styles                    - { Style(s) to look for: tableHeader,imgApp,divLogo,divApplicationHeader,lblAppName }*/
+
+/* 5. Set the loading styles                   - { Style(s) to look for: divLoadingIndicator,imgSearchLoader}*/
+/* 6. Set the styles for search container      - { Style(s) to look for: divAddressScrollContainer,divAddressScrollContent,tblHeader,divAddressPlaceHolder,txtAddress,
+                                                                          imgLocate,divAddressList,bottomborder,divAddressHolder,divAddressContent,imgLocate,tblAddressResults}*/
+/* 7. Set the Styles for icons                 - { Style(s) to look for: customButton,imgOptions,imgShare,tdHeader }*/
+
+/* 8. Set the styles for basemap container     - { Style(s) to look for: basemapThumbnail,baseMapContainerNode,basemapLabel,selectedBaseMap,divLayerContentHolder,divLayerContainer,divLayerHolder}*/
+
+/* 9. Set the styles for tab container         - { Style(s) to look for: .claro .dijitTextBox,.claro .dijitTextBoxFocused .dijitInputContainer,.claro .dijitComboBoxMenu .dijitMenuItemSelected,.claro .dijitComboBoxMenuActive .dijitMenuItemSelected
+                                                                         .claro .dijitMenu,.claro .dijitComboBoxMenu .dijitMenuItem,.claro .dijitReset ,.dijitInputInner,.claro .dijitContentPane,.rounded,span.rounded:hover,span.rounded:hover*/
+/* 10. Set the styles for info window styles   - { Style(s) to look for: divInfoContainer divInfoDetailsScroll,tdInfoHeader,divInfoDetails,divInfoWindowContainer,divTriangle,spanContentText,title,.dj_ie .divInfoWindowContainer
+                                                                          .divInfoWindowContainer .container,imgInfoWindow,divInfoWindowContainer .content,.divInfoWindowContainer ,title,txtBox,txtEnter,divCreateRequest}*/
+/* 11. Set the styles for info window content  - { Style(s) to look for: tblTransparent,tdDisplayField,tdValueField,trHeight}*/
+/* 12.Set the styles for scrollbar             -  { Style(s) to look for: scrollbar_container,scrollbar_track,scrollbar_handle,scrollbar_content,contactsScrollbar_container,
+                                                                        contactsScrollbar_content,addressScrollbar_content,scrollbar_footer}*/
+/* 13.Styles for textboxes                     - { Style(s) to look for: addressTxtBox}*/
+/* 14.Styles for combo boxes                   - { Style(s) to look for: .claro .dijitComboBox .dijitArrowButtonInner,.claro .dijitTextBox .dijitInputField,.claro .dijitComboBox .dijitHasDropDownOpen,.dijitReset .dijitInputField .dijitArrowButtonInner
+                                                                          .claro .dijitReset .dijitInputInner,.claro .dijitComboBox .dijitButtonNode,.dijitTextBox
+/* 15.esri slider styles                       - { Style(s) to look for: esriSimpleSlider	}*/
+/*--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/* Styles for body*/
+
+
+body, html
+{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Verdana;
+    overflow: hidden;
+    color: White;
+    visibility: visible !important;
+    font-size: 11px !important;
+}
+
+
+/*---------------------------------------------------------------------------------------------------------*/
+/* 2.Styles for splash screen*/
+
+.divSplashScreenContainer
+{
+    top: 0px;
+    left: 0px;
+    background: rgba(0,0,0,0.65);
+    -pie-background: rgba(0,0,0,0.65);
+    behavior: url("PIE.htc");
+    position: absolute;
+    z-index: 1003;
+    width: 100%;
+    height: 100%;
+}
+ .divSplashScreenContent
+{
+    z-index: 1003;
+    background-color: black;
+    text-align: left;
+}
+
+.divSplashScreenDialogContent
+{
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0 10px #fff;
+    -moz-box-shadow: 0 0 10px #fff;
+    -o-box-shadow: 0 0 10px #fff;
+    box-shadow: 0 0 10px #fff;
+    behavior: url("PIE.htc");
+}
+
+.divSplashContainer
+{
+    overflow: hidden;
+    position: relative;
+}
+
+.divSplashContent
+{
+    padding-left: 10px;
+    overflow: hidden;
+    width: 90%;
+    font-size:11px !important;
+}
+
+.customButton
+{
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    background: -webkit-gradient(linear, left top, left bottom, from(#888), to(#454545)) !important;
+    background: -moz-linear-gradient(top, #888, #454545) !important;
+    background: -o-linear-gradient(#888, #454545) !important;
+    background: linear-gradient(#888, #454545) !important;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    overflow: hidden;
+    height: 25px !important;
+    behavior: url("PIE.htc");
+    font-size:11px!important;
+}
+
+.customButtonInner
+{
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#888888', endColorstr='#454545');
+    width: 100%;
+    height: 100%;
+    font-size:11px !important;
+}
+
+/*---------------------------------------------------------------------------------------------------------*/
+/* 3.animations */
+
+.showContainer
+{
+    -webkit-transition: All 0.5s ease-in;
+    -moz-transition: All 0.5s ease-in;
+    -o-transition: All 0.5s ease-in;
+    transition: All 0.5s ease-in;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+}
+
+.hideContainer
+{
+    -webkit-transition: All 0.5s ease-in;
+    -moz-transition: All 0.5s ease-in;
+    -o-transition: All 0.5s ease-in;
+    transition: All 0.5s ease-in;
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -o-transform: scale(0);
+    transform: scale(0);
+
+}
+
+.opacityHideAnimation
+{
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition: visibility 0s linear 0.5s, opacity 0.5s ease-in;
+    -moz-transition: visibility 0s linear 0.5s, opacity 0.5s ease-in;
+    -o-transition: visibility 0s linear 0.5s, opacity 0.5s ease-in;
+    transition: visibility 0s linear 0.5s, opacity 0.5s ease-in;
+}
+
+.hideContainerHeight
+{
+    overflow: hidden;
+    -webkit-transition: height 0.5s ease-in;
+    -moz-transition: height 0.5s ease-in;
+    -o-transition: height 0.5s ease-in;
+    transition: height 0.5s ease-in;
+    height: 0px;
+}
+
+.showContainerHeight
+{
+    overflow: hidden;
+    -webkit-transition: height 0.5s ease-in;
+    -moz-transition: height 0.5s ease-in;
+    -o-transition: height 0.5s ease-in;
+    transition: height 0.5s ease-in;
+    height: 100%;
+}
+
+.esriLogo
+{
+   bottom:10px;
+    -webkit-transition: bottom 0.5s ease-in;
+    -moz-transition: bottom 0.5s ease-in;
+    -o-transition: bottom 0.5s ease-in;
+    transition: bottom 0.5s ease-in;
+    z-index:1001 !important;
+}
+
+/*---------------------------------------------------------------------------------------------------------*/
+/* 4.Header Styles*/
+
+.tableHeader
+{
+    width: 100%;
+    height: 100%;
+}
+
+
+.imgApp
+{
+    width: 50px;
+    height:50px;
+}
+
+.divLogo
+{
+    position: absolute !important;
+    top: 0px;
+    left: 0px;
+    width: 75px;
+    height: 75px;
+    z-index: 1001;
+}
+
+.divApplicationHeader
+{
+    vertical-align: middle;
+    background: rgba(0,0,0,0.9);
+    -pie-background: rgba(0,0,0,0.9);
+    behavior: url("PIE.htc");
+    top: 0px;
+    height: 55px;
+    width: 100%;
+    position: absolute;
+    z-index: 1000;
+    overflow: hidden;
+    font-size: 24px;
+}
+
+.lblAppName
+{
+    padding-left: 90px;
+    font-size:24px;
+}
+
+/*-----------------------------------------------------------------------------------------------------------------------------------------------*/
+/*5 Styles for loading */
+
+.divLoadingIndicator
+{
+    height: 100%;
+    width: 100%;
+    display: none;
+    z-index: 1004;
+    position: absolute;
+    bottom: 0px;
+    filter: alpha(opacity = 55);
+    -moz-opacity: 0.55;
+    -khtml-opacity: 0.55;
+    opacity: 0.55;
+    top: 0px;
+    left: 0px;
+    background: rgba(0,0,0,0.65);
+    -pie-background: rgba(0,0,0,0.65);
+    behavior: url("PIE.htc");
+}
+
+.imgSearchLoader
+{
+    vertical-align: middle;
+    display: none;
+    cursor: default;
+}
+
+
+/*--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*6.AddressContainer Styles*/
+
+.divAddressScrollContainer
+{
+    overflow: hidden;
+    position: relative;
+}
+
+.divAddressScrollContent
+{
+    overflow: hidden;
+    width: 93%;
+    color:White;
+}
+
+.tblHeader
+{
+     background-color: #303030;
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-topright: 10px;
+    -moz-border-radius-bottomleft: 0px;
+    -moz-border-radius-bottomright: 0px;
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+    -webkit-border-bottom-left-radius: 0px;
+    -webkit-border-bottom-right-radius: 0px;
+     border-radius: 10px 10px 0px 0px;
+    border-bottom:gray 1px solid;
+}
+
+
+.divAddressPlaceHolder
+{
+    border: 1px solid #242424;
+    background-color: #333333;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    position: relative;
+}
+
+.txtAddress
+{
+    background-color: #333333;
+    color: #fff;
+    width: 240px;
+    border: none !important;
+    outline:none;
+    padding:0px !important;
+    vertical-align:middle;
+    height:30px !important;
+    font-size:11px !important;
+    font-family: Verdana !important;
+    line-height: 30px;
+}
+
+.imgLocate
+{
+    position: absolute;
+    cursor: pointer;
+    right: 0px;
+}
+
+.divAddressList
+{
+    margin-top: 5px;
+    color: #fff;
+    z-index: 101;
+    background-color: transparent;
+    border: none;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    behavior: url("PIE.htc");
+}
+
+.bottomborder
+{
+    border-bottom: 1px solid white;
+}
+
+.divAddressHolder
+{
+    z-index: 1000;
+    position:absolute;
+    top: 60px;
+    right: 15px;
+    width: 300px;
+}
+.divAddressContent
+{
+    height:300px;
+     background-color: #585858;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    behavior: url("PIE.htc");
+}
+
+.imgLocate
+{
+    height: 30px !important;
+    width: 30px !important;
+}
+.tblAddressResults
+{
+    font-size:11px;
+   }
+
+/*--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/* 7.Styles for icons*/
+
+.customButton
+{
+    height: 25px !important;
+}
+
+.imgOptions
+{
+    height: 30px !important;
+    width: 30px !important;
+    vertical-align: middle;
+    padding:0px 5px 0px 0px;
+    cursor:pointer;
+}
+
+.imgShare
+{
+    height: 30px !important;
+    width: 30px !important;
+    cursor:pointer;
+}
+
+.tdHeader
+{
+    width: 50px;
+    font-weight: bolder;
+    font-size:11px !important;
+}
+
+/*--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*8.Basemap Container Styles*/
+
+.basemapThumbnail
+{
+    -moz-box-shadow: 0 0 7px #000000;
+    border: 1px solid #fff;
+    height: 67px;
+    margin: 1px;
+    width: 102px;
+    cursor: pointer;
+}
+
+.baseMapContainerNode
+{
+    float: left;
+    margin: 10px 10px 10px 10px;
+    width: 100px;
+}
+
+.basemapLabel
+{
+    background-color: transparent;
+    color: #fff;
+    text-align: center;
+    width: 100%;
+    overflow: hidden;
+    display: block;
+}
+
+.selectedBaseMap
+{
+    -webkit-box-shadow: 0 0 15px #63BA65;
+    -moz-box-shadow: 0 0 15px #63BA65;
+    box-shadow: 0 0 15px #63BA65;
+    filter: progid:DXImageTransform.Microsoft.Glow(color='#8EAE21', Strength='4');
+}
+
+.divLayerContentHolder
+{
+    overflow: auto;
+    padding:7px;
+}
+.divLayerContainer
+{
+    position: absolute;
+    top: 60px;
+    right: 15px;
+    width: 260px;
+    z-index: 1002;
+    background-color: transparent;
+}
+
+.divLayerHolder
+{
+    width: 260px;
+    height:115px;
+    background: rgba(0,0,0,0.9);
+    -pie-background: rgba(0,0,0,0.9);
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    behavior: url("PIE.htc");
+}
+/*--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/* 9.Set the styles for tab container */
+
+.claro .dijitTextBox
+{
+    background-color: #333333 !important;
+    color: #fff !important;
+    font-family: Verdana !important;
+    font-size: 11px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.claro .dijitTextBoxFocused .dijitInputContainer
+{
+    background-color: #333333 !important;
+    color: #fff !important;
+
+}
+
+.claro .dijitComboBoxMenu .dijitMenuItemSelected
+{
+    background-position: 0px -177px !important;
+    background-color: #333333 !important;
+    color: White !important;
+}
+
+.claro .dijitComboBoxMenuActive .dijitMenuItemSelected
+{
+    background-position: 0px -177px;
+    background-color: red !important;
+    color: White !important;
+}
+
+.claro .dijitMenu
+{
+    background-color: #333333 !important;
+    color: #fff !important;
+}
+
+.claro .dijitComboBoxMenu .dijitMenuItem
+{
+    border: 0px solid #000 !important;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+    background-color: #333333 !important;
+}
+
+.claro .dijitReset
+{
+    color: white !important;
+    font-family: Verdana;
+    background-color: #333333 !important;
+}
+
+.dijitInputInner
+{
+   height: 23px !important;
+    line-height: 20px !important;
+    border-radius:3px !important;
+
+ }
+
+.claro .dijitContentPane
+{
+    padding: 0px !important;
+}
+
+.rounded
+{
+    background: transparent url(images/buttonImage.png ) no-repeat scroll;
+    clear: left;
+    font-family: Verdana;
+    font-size: 10px;
+    display: block;
+    height: 25px;
+    line-height: 25px;
+    width: 84px;
+    text-align: center;
+    color: White;
+    cursor: pointer;
+}
+
+span.rounded:hover
+{
+    background-position: 100% -25px;
+}
+
+span.rounded:hover
+{
+    background-position: 0% -25px;
+}
+/*--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/* 10.InfoWindow Styles*/
+
+.divInfoContainer
+{
+    top: 0px;
+    left: 0px;
+    background: rgba(0,0,0,0.9);
+    position: absolute;
+    z-index: 1002;
+    width: 100%;
+    height: 100%;
+}
+
+
+ .divInfoDetailsScroll
+{
+    overflow: hidden;
+    width: 95%;
+    color: White;
+}
+
+.tdInfoHeader
+{
+    font-weight: bolder;
+    font-size:11px !important;
+}
+
+.divInfoDetails
+{
+    margin-left: 5px !important;
+}
+
+
+.divInfoWindowContainer
+{
+    z-index: 1000;
+    position: absolute;
+    background-color: #585858;
+    color: #fff;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.divTriangle
+{
+    border: solid 20px transparent;
+    border-top-color: #585858;
+    border-bottom: 0;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    display: block;
+    position: relative;
+    margin: auto;
+    bottom: 0px;
+}
+
+.spanContentText
+{
+    margin-left: 5px;
+    margin-top: 5px;
+    font-size:11px!important;
+}
+
+.title
+{
+    font-weight: bolder;
+}
+
+.dj_ie .divInfoWindowContainer
+{
+    border: none;
+}
+
+.imgInfoWindow
+{
+    position: relative;
+}
+
+.divInfoWindowContainer .content
+{
+    position: relative;
+    color: #fff;
+    overflow: auto;
+}
+
+.divInfoWindowContainer .title
+{
+    font-weight: bolder;
+    height: 21px;
+    padding: 7px 3px 2px 7px !important;
+    color: #fff;
+    background-color: #303030;
+    -moz-border-radius-topleft: 7px;
+    -moz-border-radius-topright: 7px;
+    -moz-border-radius-bottomleft: 0px;
+    -moz-border-radius-bottomright: 0px;
+    -webkit-border-top-left-radius: 7px;
+    -webkit-border-top-right-radius: 7px;
+    -webkit-border-bottom-left-radius: 0px;
+    -webkit-border-bottom-right-radius: 0px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom: gray 1px solid;
+}
+
+
+.txtBox
+{
+    border: none !important;
+    outline: none;
+    padding: 0px !important;
+    margin-left: 4px;
+    vertical-align: middle;
+    background-color: #333333;
+    color: #fff;
+    font-family: Verdana !important;
+    width: 203px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    overflow: auto;
+    font-size: 11px;
+    overflow-x: hidden;
+}
+
+.txtEnter
+{
+ padding-right: 2px;
+ }
+
+.divCreateRequestContainer
+{
+    top: 0px;
+    left: 0px;
+    background: rgba(0,0,0,0.9);
+    -pie-background: rgba(0,0,0,0.9);
+    behavior: url("PIE.htc");
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1002;
+}
+
+/*--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/* 11.Styles for infowindow content*/
+
+.divInfoContent
+{
+    z-index: 1002;
+    background-color: transparent;
+}
+
+
+.divCreateRequest
+{
+    z-index: 1002;
+    background-color: transparent;
+}
+
+
+.divInfoWindowContainer .content
+{
+    padding: 0px !important;
+    overflow: hidden;
+}
+
+
+.submitDiv
+{
+    height: 30px;
+}
+
+.infoOptions
+{
+    height: 30px !important;
+    width: 30px !important;
+    vertical-align: middle;
+   padding-left: 2px;
+   padding-right: 3px;
+    cursor: pointer;
+}
+
+
+.trRowStyle
+{
+    height: 29px;
+    font-size: 11px !important;
+}
+
+.txtBox
+{
+    height: 25px !important;
+    line-height: 23px !important;
+    font-size: 11px !important;
+}
+
+.divNewContacts
+{
+    position: absolute;
+    top: 35px;
+    padding-left: 5px;
+    overflow: hidden;
+    display: none;
+}
+/*--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*12.Styles for scrollbar*/
+
+.scrollbar_track
+{
+    position: absolute;
+    background-color: transparent;
+    display: none;
+    right: 5px !important;
+    top: 0px !important;
+}
+
+.scrollbar_handle
+{
+    position: relative;
+    width: 10px;
+    background-color: Silver;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    opacity: 0.9;
+    -moz-opacity: 0.9;
+    cursor: default;
+    height:0px !important;
+}
+
+.scrollbar_content
+{
+    overflow: hidden;
+    width: 325px;
+    height: 210px;
+    border: none;
+}
+
+.contactsScrollbar_container
+{
+    width: 340px;
+    height: 180px;
+    overflow: hidden;
+    position: relative;
+}
+
+/*--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/* 13.Styles for textboxes*/
+
+.addressTxtBox
+{
+    background-color: #333333;
+    border: 1px solid #333333;
+    width: 168px;
+    height: 23px;
+    color: #fff;
+    font-size: 11px !important;
+    border-radius: 3px;
+    padding: 0px !important;
+ line-height:21px !important;
+}
+
+/*--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/* 14.Styles for combo boxes    */
+.claro .dijitComboBox .dijitArrowButtonInner
+{
+    background-image: url(images/DropDownNew.png) !important;
+    background-position: 0px 0px !important;
+    height: 23px !important;
+    width: 21px !important;
+    border: none !important;
+}
+
+.claro .dijitTextBox .dijitInputField
+{
+    padding: 0px !important;
+    border-radius: 3px !important;
+}
+
+.claro .dijitComboBox .dijitHasDropDownOpen
+{
+    padding: 0px !important;
+}
+.dijitReset .dijitInputField .dijitArrowButtonInner
+{
+    margin-left: 5px !important;
+    background-position: 0px -177px !important;
+    padding-top: 7px !important;
+    border: 0px !important;
+}
+.claro .dijitReset .dijitInputInner
+{
+    color: white !important;
+
+}
+.claro .dijitComboBox .dijitButtonNode
+{
+
+    border-width: 0px !important;
+    background-image: none !important;
+}
+.dijitTextBox
+{
+     width: 168px !important;
+     border-width: 0px !important;
+}
+
+
+/*---------------------------------------------------------------------------------------------------------*/
+/* 15.esri slider style*/
+
+.esriSimpleSlider
+{
+    top: 90px !important;
+}

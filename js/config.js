@@ -1,5 +1,5 @@
 /** @license
- | Version 10.1.1
+ | Version 10.2
  | Copyright 2012 Esri
  |
  | Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,6 +33,8 @@ dojo.declare("js.config", null, {
     //
     // 9.  Customize address search settings          - [ Tag(s) to look for: LocatorURL, LocatorFields, LocatorDefaultAddress, LocatorMarkupSymbolPath]
     //
+    // Define the database field names                - [ Tag(s) to look for:  ContactIdFieldName,contactid,ContactFieldName,HomePhoneFieldName,WorkPhoneFieldName,CellPhoneFieldName
+    //                                                                          EmailFieldName,  interestIdName,  SmsFieldName]
     // 10. Set URL for geometry service               - [ Tag(s) to look for: GeometryService ]
     //
     // 11. Customize info-Window settings             - [ Tag(s) to look for: InfoWindowHeader, InfoContactsDisplay ]
@@ -54,10 +56,10 @@ dojo.declare("js.config", null, {
     ApplicationIcon: "images/applicationImg.png",
 
     // Set splash window content - Message that appears when the application starts
-    SplashScreenMessage: "<b>Community Addressing</b> <br/> <hr/> <br/>The <b>Community Addressing</b> application allows the general public to contribute missing site address locations and provide contact information for current addresses. It is used to enlist citizens and members of the general public in the continuous improvement of address and contact information across our community.<br/><br/>",
+    SplashScreenMessage: "Configuration with Hosted Services",
 
     // Set URL of help page/portal
-    HelpURL: "help.html",
+    HelpURL: "help.htm",
 
     // ------------------------------------------------------------------------------------------------------------------------
     // BASEMAP SETTINGS
@@ -70,34 +72,41 @@ dojo.declare("js.config", null, {
                        Key: "parcelMap",
                        ThumbnailSource: "images/PublicAccess.png",
                        Name: "Streets",
-                       MapURL: "http://localgovtemplates.esri.com/ArcGIS/rest/services/ParcelPublicAccess/MapServer"
+                       MapURL: "http://arcgis-tenone2012-1974758903.us-west-1.elb.amazonaws.com/arcgis/rest/services/ParcelPublicAccess/MapServer"
                    },
                    {
                        Key: "hybridMap",
                        ThumbnailSource: "images/ImageryHybrid.png",
                        Name: "Imagery",
-                       MapURL: "http://localgovtemplates.esri.com/ArcGIS/rest/services/ImageryHybrid/MapServer"
+                       MapURL: "http://arcgis-tenone2012-1974758903.us-west-1.elb.amazonaws.com/arcgis/rest/services/ImageryHybrid/MapServer"
                    }
 		       ],
 
 
     // Initial map extent. Use comma (,) to separate values and dont delete the last comma
-    DefaultExtent: "-9814744.66,5122754.53,-9814207.21,5123112.83",
+                   //DefaultExtent: "-9814744.66,5122754.53,-9814207.21,5123112.83",
+                   DefaultExtent: "-9814514.432680037,5128246.124408959,-9813902.936453806,5128857.620635189",
+
+    // ------------------------------------------------------------------------------------------------------------------------
+
 
     // ------------------------------------------------------------------------------------------------------------------------
     // OPERATIONAL DATA SETTINGS
 
     // Configure operational layers
 
-    AddressLayer: "http://localgovtemplates2.esri.com/ArcGIS/rest/services/Planning/CommunityAddressing/FeatureServer/0",
+    AddressLayer: "http://services.arcgis.com/b6gLrKHqgkQb393u/arcgis/rest/services/AddressingNOjoin/FeatureServer/0",
+    AddressObjectId: "${OBJECTID}",
 
-    ContactsLayer: "http://localgovtemplates2.esri.com/ArcGIS/rest/services/Planning/CommunityAddressing/FeatureServer/1",
+    ContactsLayer: "http://services.arcgis.com/b6gLrKHqgkQb393u/ArcGIS/rest/services/AddressingNOjoin/FeatureServer/1",
+
+    //We have added relation field for address layer. However we are not displaying/fetching the contact details for an address. So        //the relation field is not required for contacts layer.
 
     // ServiceUrl is the REST end point for the reference overlay layer
     // DisplayOnLoad setting this will show the reference overlay layer on load
     ReferenceOverlayLayer:
           {
-              ServiceUrl: "http://yourserver/ArcGIS/rest/services/ReferenceOverlay/MapServer",
+              ServiceUrl: "http://localgovtemplates.esri.com/ArcGIS/rest/services/ImageryReferenceOverlay/MapServer",
               DisplayOnLoad: false
           },
 
@@ -108,26 +117,45 @@ dojo.declare("js.config", null, {
     // Set string value to be shown for null or blank values
     ShowNullValueAs: "N/A",
 
-    // ------------------------------------------------------------------------------------------------------------------------
+
     // ADDRESS SEARCH SETTINGS
     // ------------------------------------------------------------------------------------------------------------------------
-    // Set Locator service URL
-    LocatorURL: "http://tasks.arcgisonline.com/ArcGIS/rest/services/Locators/TA_Address_NA_10/GeocodeServer",
 
-    // Set Locator fields (fields to be used for searching)
-    LocatorFields: "SingleLine",
+    // Set locator settings such as locator symbol, size, zoom level, display fields, match score
+    // Set Locator service settings
+    LocatorSettings: {
+        DefaultLocatorSymbol: "images/Pushpin.png",
+        SymbolSize: { width: 25, height: 25 },
+        DefaultValue: "321 Redbud Dr,Naperville,IL,60540",
+        LocatorParameters: ["SingleLine"],
+        LocatorFields: ["Address", "City", "State", "Zip"],
+        LocatorURL: "http://tasks.arcgisonline.com/ArcGIS/rest/services/Locators/TA_Address_NA_10/GeocodeServer",
+        CandidateFields: "Loc_name, Score, Match_addr",
+        FieldName: "${Match_addr}",
+        LocatorFieldName: 'Loc_name',
+        LocatorFieldValues: ["US_Streets", "US_StreetName"],
+        AddressMatchScore: 80,
+        LocatorRippleSize: 40
+    },
 
-    // Set default address to search
-    LocatorDefaultAddress: "845 Cardiff Rd, Naperville, IL, 60563",
-
-    // Set pushpin image path
-    LocatorMarkupSymbolPath: "images/pushpin.png",
-
+    //Define the database field names
+    //Note: DateFieldName refers to a date database field.
+    //All other attributes refer to text database fields.
+    DatabaseFields: {
+        ContactIdFieldName: "CONTACTID",
+        ContactFieldName: "CONTACT",
+        HomePhoneFieldName: "HOMEPHONE",
+        WorkPhoneFieldName: "WORKPHONE",
+        CellPhoneFieldName: "CELLPHONE",
+        EmailFieldName: "EMAIL",
+        interestIdName: "INTERESTID",
+        SmsFieldName: "SMS"
+    },
     // ------------------------------------------------------------------------------------------------------------------------
     // GEOMETRY SERVICE SETTINGS
     // ------------------------------------------------------------------------------------------------------------------------
     // Set geometry service URL
-    GeometryService: "http://localgovtemplates2.esri.com/ArcGIS/rest/services/Geometry/GeometryServer",
+    GeometryService: "http://arcgis-localgov-61933129.us-west-1.elb.amazonaws.com/arcgis/rest/services/Utilities/Geometry/GeometryServer",
 
     // ------------------------------------------------------------------------------------------------------------------------
     // INFO-WINDOW SETTINGS
@@ -143,22 +171,22 @@ dojo.declare("js.config", null, {
     // Set the content to be displayed on the info-Popup. Define labels, field values, field types and field formats
     InfoPopupFieldsCollection: [{
         DisplayText: "Address:",
-        FieldName: "FULLADDR"
+        FieldName: "${FULLADDR}"
     }, {
         DisplayText: "Bldg/Unit Type:",
-        FieldName: "UNITTYPE"
+        FieldName: "${UNITTYPE}"
     }, {
         DisplayText: "Bldg/Unit #:",
-        FieldName: "UNITID"
+        FieldName: "${UNITID}"
     }, {
         DisplayText: "Alt. Bldg/Unit Type:",
-        FieldName: "ALTUNITTYPE"
+        FieldName: "${ALTUNITTYPE}"
     }, {
         DisplayText: "Alt. Bldg/Unit #:",
-        FieldName: "ALTUNITID"
+        FieldName: "${ALTUNITID}"
     }, {
         DisplayText: "City:",
-        FieldName: "MUNICIPALITY"
+        FieldName: "${MUNICIPALITY}"
     }],
 
     InfoInputPopupFieldsCollection:
@@ -170,6 +198,16 @@ dojo.declare("js.config", null, {
         "ALTUNITID",
         "MUNICIPALITY"
     ],
+
+
+    // Set size of the info-Popup - select maximum height and width in pixels (not applicable for tabbed info-Popup)
+    //minimum height should be 310 for the info-popup in pixels
+    InfoPopupHeight: 310,
+
+    // Minimum width should be 330 for the info-popup in pixels
+    InfoPopupWidth: 330,
+
+    AddressLayerFieldType: "esriFieldTypeOID",
 
     // Set the default address values
     DefaultAddressValues: { "STATUS": "Pending" },
@@ -185,7 +223,7 @@ dojo.declare("js.config", null, {
     // Set the mandatory fields for contact info-popup
     MandatoryContactFields: {
         contactValidation: { "Attributes": "CONTACT", "Message": "Enter Your Name", "isComboBox": false },
-        phoneValidation: { "Attributes": "HOMEPHONE,EMAIL", "Message": "Enter Your Home Phone and Email", "isComboBox": false }
+        phoneValidation: { "Attributes": "HOMEPHONE,EMAIL", "Message": "Enter Your Home Phone or Email", "isComboBox": false }
     }
 
 

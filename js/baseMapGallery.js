@@ -1,5 +1,5 @@
 ﻿/** @license
- | Version 10.1.1
+ | Version 10.2
  | Copyright 2012 Esri
  |
  | Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,32 +17,31 @@
 var containerHeight = 0;
 //function for adding the basemap layers
 function CreateBaseMapComponent() {
-    for (var i = 0; i < baseMapLayerCollection.length; i++) {
-        map.addLayer(CreateBaseMapLayer(baseMapLayerCollection[i].MapURL, baseMapLayerCollection[i].Key, (i == 0) ? true : false));
-    }
-
-    if (baseMapLayerCollection.length == 1) {
-        dojo.byId('divBaseMapTitleContainer').style.display = 'none';
-        HideLoadingMessage();
-        return;
+    for (var i = 0; i < baseMapLayers.length; i++) {
+        map.addLayer(CreateBaseMapLayer(baseMapLayers[i].MapURL, baseMapLayers[i].Key, (i == 0) ? true : false));
     }
     var layerList = dojo.byId('layerList');
-
-    for (var i = 0; i < Math.ceil(baseMapLayerCollection.length / 2); i++) {
+    for (var i = 0; i < Math.ceil(baseMapLayers.length / 2); i++) {
         var previewDataRow = document.createElement("tr");
-        containerHeight += 100;
-        if (baseMapLayerCollection[(i * 2)]) {
-            var layerInfo = baseMapLayerCollection[(i * 2)];
+
+        if (baseMapLayers[(i * 2)]) {
+            var layerInfo = baseMapLayers[(i * 2)];
             layerList.appendChild(CreateBaseMapElement(layerInfo));
         }
 
-        if (baseMapLayerCollection[(i * 2) + 1]) {
-            var layerInfo = baseMapLayerCollection[(i * 2) + 1];
+        if (baseMapLayers[(i * 2) + 1]) {
+            var layerInfo = baseMapLayers[(i * 2) + 1];
             layerList.appendChild(CreateBaseMapElement(layerInfo));
         }
     }
-
-    dojo.addClass(dojo.byId("imgThumbNail" + baseMapLayerCollection[0].Key), "selectedBaseMap");
+    if (!(dojo.isIE < 9)) {
+        dojo.addClass(dojo.byId("imgThumbNail" + baseMapLayers[0].Key), "selectedBaseMap");
+        if (dojo.isIE) {
+            dojo.byId("imgThumbNail" + baseMapLayers[0].Key).style.marginTop = "-5px";
+            dojo.byId("imgThumbNail" + baseMapLayers[0].Key).style.marginLeft = "-5px";
+            dojo.byId("spanBaseMapText" + baseMapLayers[0].Key).style.marginTop = "5px";
+        }
+    }
 }
 
 //function for changing the map onclick
@@ -56,6 +55,7 @@ function CreateBaseMapElement(baseMapLayerInfo) {
     imgThumbnail.setAttribute("layerId", baseMapLayerInfo.Key);
     imgThumbnail.onclick = function () {
         ChangeBaseMap(this);
+        ShowBaseMaps();
     };
     var spanBaseMapText = document.createElement("span");
     var spanBreak = document.createElement("br");
@@ -68,63 +68,63 @@ function CreateBaseMapElement(baseMapLayerInfo) {
     return divContainer;
 }
 
-//function for showing the present map and hiding previous map on window
-function ChangeBaseMap(spanControl) {
-    dijit.byId('imgBaseMap').attr("checked", false);
-    HideMapLayers();
-    var key = spanControl.getAttribute('layerId');
-    for (var i = 0; i < baseMapLayerCollection.length; i++) {
-        dojo.removeClass(dojo.byId("imgThumbNail" + baseMapLayerCollection[i].Key), "selectedBaseMap");
-        dojo.removeClass(dojo.byId("imgThumbNail" + baseMapLayerCollection[i].Key), "selectedBaseMapIE");
-        dojo.byId("imgThumbNail" + baseMapLayerCollection[i].Key).style.marginTop = "0px";
-        dojo.byId("imgThumbNail" + baseMapLayerCollection[i].Key).style.marginLeft = "0px";
-        dojo.byId("spanBaseMapText" + baseMapLayerCollection[i].Key).style.marginTop = "1px";
-        if (baseMapLayerCollection[i].Key == key) {
-
-            dojo.addClass(dojo.byId("imgThumbNail" + baseMapLayerCollection[i].Key), "selectedBaseMap");
-            var layer = map.getLayer(baseMapLayerCollection[i].Key);
-            ShowHideBaseMapComponent();
-            layer.show();
-        }
-    }
-}
-
-
-//function for displaying a map on window
+//Create basemap layer on the map
 function CreateBaseMapLayer(layerURL, layerId, isVisible) {
     var layer = new esri.layers.ArcGISTiledMapServiceLayer(layerURL, { id: layerId, visible: isVisible });
     return layer;
 }
 
+//Toggle basemap layer
+function ChangeBaseMap(spanControl) {
+    HideMapLayers();
+    var key = spanControl.getAttribute('layerId');
+    for (var i = 0; i < baseMapLayers.length; i++) {
+        dojo.removeClass(dojo.byId("imgThumbNail" + baseMapLayers[i].Key), "selectedBaseMap");
+        if (dojo.isIE) {
+            dojo.byId("imgThumbNail" + baseMapLayers[i].Key).style.marginTop = "0px";
+            dojo.byId("imgThumbNail" + baseMapLayers[i].Key).style.marginLeft = "0px";
+            dojo.byId("spanBaseMapText" + baseMapLayers[i].Key).style.marginTop = "0px";
+        }
+        if (baseMapLayers[i].Key == key) {
+            if (!(dojo.isIE < 9)) {
+                dojo.addClass(dojo.byId("imgThumbNail" + baseMapLayers[i].Key), "selectedBaseMap");
+                if (dojo.isIE) {
+                    dojo.byId("imgThumbNail" + baseMapLayers[i].Key).style.marginTop = "-5px";
+                    dojo.byId("imgThumbNail" + baseMapLayers[i].Key).style.marginLeft = "-5px";
+                    dojo.byId("spanBaseMapText" + baseMapLayers[i].Key).style.marginTop = "5px";
+                }
+            }
+            var layer = map.getLayer(baseMapLayers[i].Key);
+            layer.show();
+        }
+    }
+}
+
 //function for hiding a map on window
 function HideMapLayers() {
-    for (var i = 0; i < baseMapLayerCollection.length; i++) {
-        var layer = map.getLayer(baseMapLayerCollection[i].Key);
+    for (var i = 0; i < baseMapLayers.length; i++) {
+        var layer = map.getLayer(baseMapLayers[i].Key);
         if (layer) {
             layer.hide();
         }
     }
 }
 
-//function for showing and hiding of basemap container
-function ShowHideBaseMapComponent() {
-    if (dojo.byId('divAddressContainer').children.length != 0) {
-        WipeOutControl(dojo.byId('divAddressContainer'), 500);
-        setTimeout(function () { RemoveChildren(dojo.byId('divAddressContainer')); }, 500);
+//Animate basemap container
+function ShowBaseMaps() {
+    HideAddressContainer();
+    var cellHeight = 115;
+    if (dojo.coords("divLayerContainer").h > 0) {
+        HideBaseMapLayerContainer();
     }
     else {
-        dojo.byId('divAddressContainer').style.display = 'none';
-    }
-    var node = dojo.byId('divBaseMapTitleContainer');
-    dijit.byId('imgGPSButton').attr("checked", false);
-    dojo.byId('imgGPS').src = "images/gps.png";
-    dijit.byId('imgAddress').attr("checked", false);
-
-    if (dojo.coords(node).h > 0) {
-        WipeOutControl(node, 500);
-    }
-    else {
-        WipeInControl(node, containerHeight, 500);
+        dojo.byId('divLayerContainer').style.height = Math.ceil(baseMapLayers.length / 2) * cellHeight + "px";
+        dojo.replaceClass("divLayerContainer", "showContainerHeight", "hideContainerHeight");
     }
 }
 
+//Hide base map container
+function HideBaseMapLayerContainer() {
+    dojo.replaceClass("divLayerContainer", "hideContainerHeight", "showContainerHeight");
+    dojo.byId('divLayerContainer').style.height = '0px';
+}
