@@ -56,7 +56,7 @@ dojo.declare("js.config", null, {
     ApplicationIcon: "images/applicationImg.png",
 
     // Set splash window content - Message that appears when the application starts
-    SplashScreenMessage: "Configuration with Hosted Services",
+    SplashScreenMessage: "<b>Community Addressing</b> <br/> <hr/> <br/>The <b>Community Addressing</b> application allows the general public to contribute missing site address locations and provide contact information for current addresses. It is used to enlist citizens and members of the general public in the continuous improvement of address and contact information across our community.<br/><br/>",
 
     // Set URL of help page/portal
     HelpURL: "help.htm",
