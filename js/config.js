@@ -84,8 +84,7 @@ dojo.declare("js.config", null, {
 
 
     // Initial map extent. Use comma (,) to separate values and dont delete the last comma
-                   //DefaultExtent: "-9814744.66,5122754.53,-9814207.21,5123112.83",
-                   DefaultExtent: "-9814514.432680037,5128246.124408959,-9813902.936453806,5128857.620635189",
+                   DefaultExtent: "-9816010,5123000,-9809970,5129500",
 
     // ------------------------------------------------------------------------------------------------------------------------
 
@@ -126,14 +125,14 @@ dojo.declare("js.config", null, {
     LocatorSettings: {
         DefaultLocatorSymbol: "images/Pushpin.png",
         SymbolSize: { width: 25, height: 25 },
-        DefaultValue: "321 Redbud Dr,Naperville,IL,60540",
+        DefaultValue: "139 W Porter Ave Naperville IL 60540",
         LocatorParameters: ["SingleLine"],
         LocatorFields: ["Address", "City", "State", "Zip"],
-        LocatorURL: "http://tasks.arcgisonline.com/ArcGIS/rest/services/Locators/TA_Address_NA_10/GeocodeServer",
+        LocatorURL: "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer",
         CandidateFields: "Loc_name, Score, Match_addr",
         FieldName: "${Match_addr}",
         LocatorFieldName: 'Loc_name',
-        LocatorFieldValues: ["US_Streets", "US_StreetName"],
+        LocatorFieldValues: ["USA.StreetName" , "USA.PointAddress", "USA.StreetAddress"],
         AddressMatchScore: 80,
         LocatorRippleSize: 40
     },
