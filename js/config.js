@@ -94,10 +94,10 @@ dojo.declare("js.config", null, {
 
     // Configure operational layers
 
-    AddressLayer: "http://services.arcgis.com/b6gLrKHqgkQb393u/arcgis/rest/services/AddressingNOjoin/FeatureServer/0",
+    AddressLayer: "http://services.arcgis.com/b6gLrKHqgkQb393u/ArcGIS/rest/services/CommunityAddressingTryItLive/FeatureServer/0",
     AddressObjectId: "${OBJECTID}",
 
-    ContactsLayer: "http://services.arcgis.com/b6gLrKHqgkQb393u/ArcGIS/rest/services/AddressingNOjoin/FeatureServer/1",
+    ContactsLayer: "http://services.arcgis.com/b6gLrKHqgkQb393u/ArcGIS/rest/services/CommunityAddressingTryItLive/FeatureServer/1",
 
     //We have added relation field for address layer. However we are not displaying/fetching the contact details for an address. So        //the relation field is not required for contacts layer.
 
@@ -105,7 +105,7 @@ dojo.declare("js.config", null, {
     // DisplayOnLoad setting this will show the reference overlay layer on load
     ReferenceOverlayLayer:
           {
-              ServiceUrl: "http://localgovtemplates.esri.com/ArcGIS/rest/services/ImageryReferenceOverlay/MapServer",
+              ServiceUrl: "http://arcgis-tenone2012-1974758903.us-west-1.elb.amazonaws.com/arcgis/rest/services/ImageryReferenceOverlay/MapServer",
               DisplayOnLoad: false
           },
 
@@ -154,7 +154,7 @@ dojo.declare("js.config", null, {
     // GEOMETRY SERVICE SETTINGS
     // ------------------------------------------------------------------------------------------------------------------------
     // Set geometry service URL
-    GeometryService: "http://arcgis-localgov-61933129.us-west-1.elb.amazonaws.com/arcgis/rest/services/Utilities/Geometry/GeometryServer",
+    GeometryService: "http://arcgis-tenone2012-1974758903.us-west-1.elb.amazonaws.com/arcgis/rest/services/Utilities/Geometry/GeometryServer",
 
     // ------------------------------------------------------------------------------------------------------------------------
     // INFO-WINDOW SETTINGS
