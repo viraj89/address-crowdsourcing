@@ -1,3 +1,4 @@
+/*global dojo */
 /** @license
  | Version 10.2
  | Copyright 2012 Esri
@@ -16,7 +17,6 @@
  */
 dojo.provide("js.config");
 dojo.declare("js.config", null, {
-
     // This file contains various configuration settings for "Address Crowd Sourcing" template
     //
     // Use this file to perform the following:
@@ -66,25 +66,20 @@ dojo.declare("js.config", null, {
     // ------------------------------------------------------------------------------------------------------------------------
     // Set baseMap layers
     // Please note: All basemaps need to use the same spatial reference. By default, on application start the first basemap will be loaded
-    BaseMapLayers:
-		       [
-                   {
-                       Key: "parcelMap",
-                       ThumbnailSource: "images/PublicAccess.png",
-                       Name: "Streets",
-                       MapURL: "http://arcgis-tenone2012-1974758903.us-west-1.elb.amazonaws.com/arcgis/rest/services/ParcelPublicAccess/MapServer"
-                   },
-                   {
-                       Key: "hybridMap",
-                       ThumbnailSource: "images/ImageryHybrid.png",
-                       Name: "Imagery",
-                       MapURL: "http://arcgis-tenone2012-1974758903.us-west-1.elb.amazonaws.com/arcgis/rest/services/ImageryHybrid/MapServer"
-                   }
-		       ],
-
+    BaseMapLayers: [{
+        Key: "parcelMap",
+        ThumbnailSource: "images/PublicAccess.png",
+        Name: "Streets",
+        MapURL: "http://arcgis-tenone2012-1974758903.us-west-1.elb.amazonaws.com/arcgis/rest/services/ParcelPublicAccess/MapServer"
+    }, {
+        Key: "hybridMap",
+        ThumbnailSource: "images/ImageryHybrid.png",
+        Name: "Imagery",
+        MapURL: "http://arcgis-tenone2012-1974758903.us-west-1.elb.amazonaws.com/arcgis/rest/services/ImageryHybrid/MapServer"
+    }],
 
     // Initial map extent. Use comma (,) to separate values and dont delete the last comma
-                   DefaultExtent: "-9814373,5126542,-9813500,5127198",
+    DefaultExtent: "-9814373,5126542,-9813500,5127198",
 
     // ------------------------------------------------------------------------------------------------------------------------
 
@@ -103,13 +98,10 @@ dojo.declare("js.config", null, {
 
     // ServiceUrl is the REST end point for the reference overlay layer
     // DisplayOnLoad setting this will show the reference overlay layer on load
-    ReferenceOverlayLayer:
-          {
-              ServiceUrl: "http://arcgis-tenone2012-1974758903.us-west-1.elb.amazonaws.com/arcgis/rest/services/ImageryReferenceOverlay/MapServer",
-              DisplayOnLoad: false
-          },
-
-
+    ReferenceOverlayLayer: {
+        ServiceUrl: "http://arcgis-tenone2012-1974758903.us-west-1.elb.amazonaws.com/arcgis/rest/services/ImageryReferenceOverlay/MapServer",
+        DisplayOnLoad: false
+    },
 
     // ------------------------------------------------------------------------------------------------------------------------
 
@@ -124,7 +116,10 @@ dojo.declare("js.config", null, {
     // Set Locator service settings
     LocatorSettings: {
         DefaultLocatorSymbol: "images/Pushpin.png",
-        SymbolSize: { width: 25, height: 25 },
+        SymbolSize: {
+            width: 25,
+            height: 25
+        },
         DefaultValue: "139 W Porter Ave Naperville IL 60540",
         LocatorParameters: ["SingleLine"],
         LocatorFields: ["Address", "City", "State", "Zip"],
@@ -132,7 +127,7 @@ dojo.declare("js.config", null, {
         CandidateFields: "Loc_name, Score, Match_addr",
         FieldName: "${Match_addr}",
         LocatorFieldName: 'Loc_name',
-        LocatorFieldValues: ["USA.StreetName" , "USA.PointAddress", "USA.StreetAddress"],
+        LocatorFieldValues: ["USA.StreetName", "USA.PointAddress", "USA.StreetAddress"],
         AddressMatchScore: 80,
         LocatorRippleSize: 40
     },
@@ -188,8 +183,7 @@ dojo.declare("js.config", null, {
         FieldName: "${MUNICIPALITY}"
     }],
 
-    InfoInputPopupFieldsCollection:
-    [
+    InfoInputPopupFieldsCollection: [
         "FULLADDR",
         "UNITTYPE",
         "UNITID",
@@ -197,7 +191,6 @@ dojo.declare("js.config", null, {
         "ALTUNITID",
         "MUNICIPALITY"
     ],
-
 
     // Set size of the info-Popup - select maximum height and width in pixels (not applicable for tabbed info-Popup)
     //minimum height should be 310 for the info-popup in pixels
@@ -209,11 +202,17 @@ dojo.declare("js.config", null, {
     AddressLayerFieldType: "esriFieldTypeOID",
 
     // Set the default address values
-    DefaultAddressValues: { "STATUS": "Pending" },
+    DefaultAddressValues: {
+        "STATUS": "Pending"
+    },
 
     // Set the mandatory fields for address info-popup
     MandatoryAddressFields: {
-        textValidation: { "Attributes": "FULLADDR,MUNICIPALITY", "Message": "Enter Your Address and City", "isComboBox": false }
+        textValidation: {
+            "Attributes": "FULLADDR,MUNICIPALITY",
+            "Message": "Enter Your Address and City",
+            "isComboBox": false
+        }
     },
 
     // Set the message after saving contacts successfully
@@ -221,9 +220,15 @@ dojo.declare("js.config", null, {
 
     // Set the mandatory fields for contact info-popup
     MandatoryContactFields: {
-        contactValidation: { "Attributes": "CONTACT", "Message": "Enter Your Name", "isComboBox": false },
-        phoneValidation: { "Attributes": "HOMEPHONE,EMAIL", "Message": "Enter Your Home Phone or Email", "isComboBox": false }
+        contactValidation: {
+            "Attributes": "CONTACT",
+            "Message": "Enter Your Name",
+            "isComboBox": false
+        },
+        phoneValidation: {
+            "Attributes": "HOMEPHONE,EMAIL",
+            "Message": "Enter Your Home Phone or Email",
+            "isComboBox": false
+        }
     }
-
-
 });
