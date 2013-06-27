@@ -70,12 +70,12 @@ dojo.declare("js.config", null, {
         Key: "parcelMap",
         ThumbnailSource: "images/PublicAccess.png",
         Name: "Streets",
-        MapURL: "http://arcgis-tenone2012-1974758903.us-west-1.elb.amazonaws.com/arcgis/rest/services/ParcelPublicAccess/MapServer"
+        MapURL: "http://tryitlive.arcgis.com/arcgis/rest/services/GeneralPurpose/MapServer"
     }, {
         Key: "hybridMap",
         ThumbnailSource: "images/ImageryHybrid.png",
         Name: "Imagery",
-        MapURL: "http://arcgis-tenone2012-1974758903.us-west-1.elb.amazonaws.com/arcgis/rest/services/ImageryHybrid/MapServer"
+        MapURL: "http://tryitlive.arcgis.com/arcgis/rest/services/ImageryHybrid/MapServer"
     }],
 
     // Initial map extent. Use comma (,) to separate values and dont delete the last comma
@@ -99,7 +99,7 @@ dojo.declare("js.config", null, {
     // ServiceUrl is the REST end point for the reference overlay layer
     // DisplayOnLoad setting this will show the reference overlay layer on load
     ReferenceOverlayLayer: {
-        ServiceUrl: "http://arcgis-tenone2012-1974758903.us-west-1.elb.amazonaws.com/arcgis/rest/services/ImageryReferenceOverlay/MapServer",
+        ServiceUrl: "http://tryitlive.arcgis.com/arcgis/rest/services/ImageryReferenceOverlay/MapServer",
         DisplayOnLoad: false
     },
 
@@ -149,7 +149,7 @@ dojo.declare("js.config", null, {
     // GEOMETRY SERVICE SETTINGS
     // ------------------------------------------------------------------------------------------------------------------------
     // Set geometry service URL
-    GeometryService: "http://arcgis-tenone2012-1974758903.us-west-1.elb.amazonaws.com/arcgis/rest/services/Utilities/Geometry/GeometryServer",
+    GeometryService: "http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer",
 
     // ------------------------------------------------------------------------------------------------------------------------
     // INFO-WINDOW SETTINGS
