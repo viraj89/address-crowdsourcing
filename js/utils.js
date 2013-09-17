@@ -177,7 +177,6 @@ function ValidateSiteAddress() {
 
     isAddressDataValid = true;
     dojo.byId("imgContact").style.display = "none";
-    dojo.byId('imagAddress').src = "images/address-details.png";
     dojo.byId("imagAddress").style.display = "block";
     dojo.byId("divNewAddress").style.display = "none";
     dojo.byId("divNewContacts").style.display = "block";
@@ -209,6 +208,8 @@ function AddNewAddress() {
     map.infoWindow.hide();
     HideAddressContainer();
     HideBaseMapLayerContainer();
+    dojo.byId("imgContact").style.display = "block";
+    dojo.byId("imagAddress").style.display = "none";
     map.setMapCursor('crosshair');
     var handle = dojo.connect(map, "onClick", function (evt) {
         dojo.byId('spanContactErrorMessage').style.display = "none";
@@ -289,17 +290,40 @@ function SaveNewContact() {
             return;
         } else {
             map.getLayer(addressLayerID).applyEdits([submitFeedGraphic], null, null, function (addResults) {
-                if (addResults[0].objectId != -1) {
-                    objectId = addResults[0].objectId;
-                    SaveContact(objectId);
-                } else {
-                    alert(messages.getElementsByTagName("unableToSaveData")[0].childNodes[0].nodeValue);
-                }
-                map.infoWindow.hide();
-                HideProgressIndicator();
-            },
-
-            function (err) {
+                var qTask = new esri.tasks.QueryTask(operationalLayers.Address.LayerURL);
+                var query = new esri.tasks.Query();
+                query.where = map.getLayer(addressLayerID).objectIdField + "=" + addResults[0].objectId;
+                query.outFields = ["*"];
+                query.returnGeometry = true;
+                query.outSpatialReference = map.spatialReference;
+                qTask.execute(query, function (featureset) {
+                    var attr = {};
+                    var siteAdrId = operationalLayers.Address.PrimaryKeyforFeature.split("{")[1];
+                    siteAdrId = siteAdrId.split("}")[0];
+                    try {
+                        siteAddressId = String(operationalLayers.Address.PrimaryKeyPrefixValue + dojo.string.substitute(operationalLayers.Address.PrimaryKeySuffixValue, featureset.features[0].attributes));
+                        attr[map.getLayer(addressLayerID).objectIdField] = dojo.string.substitute(operationalLayers.Address.ObjectId, featureset.features[0].attributes);
+                    } catch (e) {
+                        alert(messages.getElementsByTagName("falseConfigParams")[0].childNodes[0].nodeValue);
+                    }
+                    attr[siteAdrId] = siteAddressId;
+                    var requestGraphic = new esri.Graphic(mapPoint, null, attr, null);
+                    map.getLayer(addressLayerID).applyEdits(null, [requestGraphic], null, function (evt) {
+                        mapPoint = null;
+                        selectedMapPoint = null;
+                        if (addResults[0].objectId != -1) {
+                            SaveContact(siteAddressId);
+                        } else {
+                            alert(messages.getElementsByTagName("unableToSaveData")[0].childNodes[0].nodeValue);
+                        }
+                        map.infoWindow.hide();
+                        HideProgressIndicator();
+                    }, function (err) {
+                        alert(messages.getElementsByTagName("unableToUpdateContact")[0].childNodes[0].nodeValue);
+                        HideProgressIndicator();
+                    });
+                });
+            }, function (err) {
                 map.infoWindow.hide();
                 alert(messages.getElementsByTagName("unableToSaveData")[0].childNodes[0].nodeValue);
                 HideProgressIndicator();
@@ -307,49 +331,71 @@ function SaveNewContact() {
             });
         }
     } else {
-        SaveContact(objectId);
+        SaveContact(siteAddressId);
     }
 }
 // Save details for new address point
-function SaveContact(objectId) {
+function SaveContact(interestID) {
     ShowProgressIndicator();
     var newContactGraphic = new esri.Graphic();
     var attr = {};
-    attr[databaseFields.ContactIdFieldName] = objectId;
+    attr[databaseFields.ContactIdFieldName] = '';
     attr[databaseFields.ContactFieldName] = dojo.byId("txtcontact").value.trim();
     attr[databaseFields.HomePhoneFieldName] = dojo.byId("txthomephone").value.trim();
     attr[databaseFields.WorkPhoneFieldName] = dojo.byId("txtworkphone").value.trim();
     attr[databaseFields.CellPhoneFieldName] = dojo.byId("txtcellphone").value.trim();
     attr[databaseFields.EmailFieldName] = dojo.byId("txtemail").value.trim();
-    attr[databaseFields.interestIdName] = '';
+    attr[operationalLayers.Contacts.ForeignKeyforAddressLayer] = interestID;
     attr[databaseFields.SmsFieldName] = '';
-    newContactGraphic.setAttributes(attr);
     newContactGraphic.setAttributes(attr);
     map.getLayer(contactsLayerID).applyEdits([newContactGraphic], null, null, function (msg) {
         if (msg[0].error) {
             HideProgressIndicator();
             alert(messages.getElementsByTagName("contactError")[0].childNodes[0].nodeValue);
         } else {
-            ResetValues();
-            dojo.empty(dojo.byId("divSuccessMessage"));
-            dojo.byId('divNewContacts').style.display = "none";
-            dojo.byId("divSuccessMessage").style.display = "block";
-            var table = document.createElement("table");
-            table.style.color = "white";
-            var tbody = document.createElement("tbody");
-            table.appendChild(tbody);
-            table.style.fontsize = "11px";
-            var tr = document.createElement("tr");
-            tbody.appendChild(tr);
-            tr.style.fontSize = "11px";
-            var td = document.createElement("td");
-            tr.appendChild(td);
-            td.innerHTML = successMessage;
-            td.style.fontSize = "11px";
-            dojo.byId("divSuccessMessage").appendChild(table);
-            dojo.byId('divContactContainer').appendChild(dojo.byId('divSuccessMessage'));
-            dojo.byId("divSuccessMessage").style.display = "block";
-            HideProgressIndicator();
+            var qTask = new esri.tasks.QueryTask(operationalLayers.Contacts.LayerURL);
+            var query = new esri.tasks.Query();
+            query.where = map.getLayer(contactsLayerID).objectIdField + "=" + msg[0].objectId;
+            query.outFields = ["*"];
+            query.returnGeometry = true;
+            query.outSpatialReference = map.spatialReference;
+            qTask.execute(query, function (featureset) {
+
+                var attr = {};
+                try {
+                    attr[operationalLayers.Contacts.UniqueID] = String(operationalLayers.Contacts.UniqueIDPrefixValue + dojo.string.substitute(operationalLayers.Contacts.UniqueIDSuffixValue, featureset.features[0].attributes));
+                    attr[map.getLayer(contactsLayerID).objectIdField] = dojo.string.substitute(operationalLayers.Contacts.ObjectId, featureset.features[0].attributes);
+                } catch (e) {
+                    alert(messages.getElementsByTagName("falseConfigParams")[0].childNodes[0].nodeValue);
+                }
+                var requestGraphic = new esri.Graphic(null, null, attr, null);
+                map.getLayer(contactsLayerID).applyEdits(null, [requestGraphic], null, function (evt) {
+                    siteAddressId = null;
+                    ResetValues();
+                    dojo.empty(dojo.byId("divSuccessMessage"));
+                    dojo.byId('divNewContacts').style.display = "none";
+                    dojo.byId("divSuccessMessage").style.display = "block";
+                    var table = document.createElement("table");
+                    table.style.color = "white";
+                    var tbody = document.createElement("tbody");
+                    table.appendChild(tbody);
+                    table.style.fontsize = "11px";
+                    var tr = document.createElement("tr");
+                    tbody.appendChild(tr);
+                    tr.style.fontSize = "11px";
+                    var td = document.createElement("td");
+                    tr.appendChild(td);
+                    td.innerHTML = successMessage;
+                    td.style.fontSize = "11px";
+                    dojo.byId("divSuccessMessage").appendChild(table);
+                    dojo.byId('divContactContainer').appendChild(dojo.byId('divSuccessMessage'));
+                    dojo.byId("divSuccessMessage").style.display = "block";
+                    HideProgressIndicator();
+                }, function (err) {
+                    alert(messages.getElementsByTagName("unableToUpdateSiteAddressId")[0].childNodes[0].nodeValue);
+                    HideProgressIndicator();
+                });
+            });
         }
 
     }, function (err) {
@@ -386,8 +432,13 @@ function CreateScrollbar(container, content) {
         scrollbar_track.style.top = containerHeight.t + 'px';
         scrollbar_track.style.right = 0 + 'px';
     } else {
-        scrollbar_track.style.height = (containerHeight.h - 20) + "px";
-        scrollbar_track.style.top = containerHeight.t + 'px';
+        var h = containerHeight.h;
+        if (h > 19) {
+            scrollbar_track.style.height = (containerHeight.h - 20) + "px";
+        }
+        if (containerHeight.t >= 0) {
+            scrollbar_track.style.top = containerHeight.t + 'px';
+        }
         scrollbar_track.style.right = 0 + 'px';
     }
 
@@ -746,9 +797,9 @@ function HideAddressContainer() {
 
 //Display address details in the infowindow
 function ShowInfoAddressView() {
-    if (dojo.byId('imgDirections').getAttribute("disp") == "address-details") {
+    if (dojo.byId('imgDirections').getAttribute("disp") == "Address Details") {
+        dojo.byId('spanContactErrorMessage').style.display = "none";
         dojo.byId('imgContacts').src = "images/contact-details.png";
-        dojo.byId('imgContacts').title = "Contact Details";
         dojo.byId('imgContacts').setAttribute("disp", "Comments");
         dojo.byId('divInfoDetails').style.display = "block";
         dojo.byId('divNewContacts').style.display = "none";
@@ -815,7 +866,12 @@ function PopulateInfoDetails(mapPoint, attributes) {
         tbody.appendChild(tr);
         CreateTableRow(tr, infoPopupFieldsCollection[index].DisplayText, dojo.string.substitute(infoPopupFieldsCollection[index].FieldName, attributes));
     }
-    objectId = dojo.string.substitute(addressObjectId, attributes);
+    try {
+        siteAddressId = dojo.string.substitute(operationalLayers.Address.PrimaryKeyforFeature, attributes);
+        objectId = dojo.string.substitute(operationalLayers.Address.ObjectId, attributes);
+    } catch (e) {
+        alert(messages.getElementsByTagName("falseConfigParams")[0].childNodes[0].nodeValue);
+    }
     SetViewDetailsHeight();
 }
 
@@ -845,7 +901,7 @@ function ShowContactstsView() {
     dojo.byId("imgContacts").style.display = "none";
     dojo.byId('imgDirections').src = "images/address-details.png";
     dojo.byId('imgDirections').title = "Address Details";
-    dojo.byId('imgDirections').setAttribute("disp", "address-details");
+    dojo.byId('imgDirections').setAttribute("disp", "Address Details");
     dojo.byId("imgDirections").style.display = "block";
     dojo.byId('divInfoDetails').style.display = "none";
     dojo.byId('divSuccessMessage').style.display = "none";
@@ -854,6 +910,7 @@ function ShowContactstsView() {
 //Display Address container in infowindow
 function ShowInfoContactsView() {
     ResetValues();
+    dojo.byId('spanContactErrorMessage').style.display = "none";
     dojo.byId('divNewAddress').style.display = "block";
     dojo.byId('imgContact').style.display = "block";
     dojo.byId('imagAddress').style.display = "none";

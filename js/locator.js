@@ -40,8 +40,8 @@ function LocateAddress() {
     });
 }
 
-//function to populate addres
-//Populate candidate address list in address container
+//Function to populate candidate address list in address container
+
 function ShowLocatedAddress(candidates) {
     RemoveChildren(dojo.byId('tblAddressResults'));
     CreateScrollbar(dojo.byId("divAddressScrollContainer"), dojo.byId("divAddressScrollContent"));
