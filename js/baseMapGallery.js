@@ -34,14 +34,7 @@ function CreateBaseMapComponent() {
             layerList.appendChild(CreateBaseMapElement(layerInfo));
         }
     }
-    if (!(dojo.isIE < 9)) {
-        dojo.addClass(dojo.byId("imgThumbNail" + baseMapLayers[0].Key), "selectedBaseMap");
-        if (dojo.isIE) {
-            dojo.byId("imgThumbNail" + baseMapLayers[0].Key).style.marginTop = "-5px";
-            dojo.byId("imgThumbNail" + baseMapLayers[0].Key).style.marginLeft = "-5px";
-            dojo.byId("spanBaseMapText" + baseMapLayers[0].Key).style.marginTop = "5px";
-        }
-    }
+    dojo.addClass(dojo.byId("imgThumbNail" + baseMapLayers[0].Key), "selectedBaseMap");
 }
 
 //function for changing the map onclick
@@ -86,13 +79,11 @@ function ChangeBaseMap(spanControl) {
             dojo.byId("spanBaseMapText" + baseMapLayers[i].Key).style.marginTop = "0px";
         }
         if (baseMapLayers[i].Key == key) {
-            if (!(dojo.isIE < 9)) {
-                dojo.addClass(dojo.byId("imgThumbNail" + baseMapLayers[i].Key), "selectedBaseMap");
-                if (dojo.isIE) {
-                    dojo.byId("imgThumbNail" + baseMapLayers[i].Key).style.marginTop = "-5px";
-                    dojo.byId("imgThumbNail" + baseMapLayers[i].Key).style.marginLeft = "-5px";
-                    dojo.byId("spanBaseMapText" + baseMapLayers[i].Key).style.marginTop = "5px";
-                }
+            dojo.addClass(dojo.byId("imgThumbNail" + baseMapLayers[i].Key), "selectedBaseMap");
+            if (dojo.isIE) {
+                dojo.byId("imgThumbNail" + baseMapLayers[i].Key).style.marginTop = "0px";
+                dojo.byId("imgThumbNail" + baseMapLayers[i].Key).style.marginLeft = "0px";
+                dojo.byId("spanBaseMapText" + baseMapLayers[i].Key).style.marginTop = "0px";
             }
             var layer = map.getLayer(baseMapLayers[i].Key);
             layer.show();

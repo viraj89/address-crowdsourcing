@@ -34,4 +34,9 @@
     <geolocationPermissionDenied>Permission denied.</geolocationPermissionDenied>
     <geolocationUnKnownError>Unknown error.</geolocationUnKnownError>
     <noSearchResults>No results found.</noSearchResults>
+    <unableToUpdateContact>Unable to update contact ID.</unableToUpdateContact>
+    <unableToUpdateSiteAddressId>Unable to update Site Address Id.</unableToUpdateSiteAddressId>
+    <falseConfigParams>
+	 Required configuration key values are either null or not exactly matching with layer attributes, This message may appear multiple times.
+    </falseConfigParams>
 </Messages>

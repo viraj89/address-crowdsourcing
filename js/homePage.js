@@ -19,12 +19,18 @@ dojo.require("esri.layers.FeatureLayer");
 dojo.require("esri.tasks.query");
 dojo.require("dijit.form.TextBox");
 dojo.require("dijit.form.ComboBox");
+dojo.require("dijit.form.FilteringSelect");
+
 dojo.require("dojo.store.Memory");
 dojo.require("dojo.data.ItemFileReadStore");
-dojo.require("js.config");
-dojo.require("dijit.form.FilteringSelect");
+
+dojo.require("esri.map");
+dojo.require("esri.layers.FeatureLayer");
+dojo.require("esri.tasks.query");
 dojo.require("esri.tasks.geometry");
 dojo.require("esri.tasks.locator");
+
+dojo.require("js.config");
 dojo.require("js.InfoWindow");
 
 var map; //ESRI map object
@@ -35,10 +41,6 @@ var geometryService;
 var defaultImg;
 var locator; //variable for storing locator URL
 var locatorFields; //variable to store location params
-var addressLayerURL;
-var addressLayer;
-var contactsLayer;
-var contactsLayerURL;
 var addressLayerID = "addressLayerID";
 var contactsLayerID = "contactsLayerID";
 var infoPopupFieldsCollection; //Variable for storing configurable Info Popup fields
@@ -64,9 +66,10 @@ var selectedMapPoint;
 var addressLayerFieldType;
 var databaseFields;
 var lastSearchString;
+var operationalLayers;
+var siteAddressId;
 
 function init() {
-   // ShowProgressIndicator();
     esri.config.defaults.io.proxyUrl = "proxy.ashx";
     esriConfig.defaults.io.alwaysUseProxy = false;
     esriConfig.defaults.io.timeout = 180000;
@@ -155,7 +158,7 @@ function init() {
     dojo.byId('imgDirections').title = "Address Details";
     dojo.byId('imgDirections').style.display = "none";
     dojo.byId('imagAddress').src = "images/address-details.png";
-    dojo.byId('imagAddress').title = "address-details";
+    dojo.byId('imagAddress').title = "Address Details";
     dojo.byId('imagAddress').style.display = "none";
     dojo.byId("divLogo").style.display = "block";
     dojo.byId('divSplashContent').innerHTML = responseObject.SplashScreenMessage;
@@ -206,8 +209,7 @@ function init() {
     });
     infoPopupFieldsCollection = responseObject.InfoPopupFieldsCollection;
     showNullValueAs = responseObject.ShowNullValueAs;
-    addressLayerURL = responseObject.AddressLayer;
-    contactsLayerURL = responseObject.ContactsLayer;
+    operationalLayers = responseObject.OperationalLayers;
     locatorSettings = responseObject.LocatorSettings;
     geometryService = new esri.tasks.GeometryService(responseObject.GeometryService);
     defaultImg = responseObject.LocatorMarkupSymbolPath;
@@ -223,7 +225,6 @@ function init() {
     defaultAddressFields = responseObject.DefaultAddressValues;
     addressLayerFieldType = responseObject.AddressLayerFieldType;
     databaseFields = responseObject.DatabaseFields;
-    addressObjectId = responseObject.AddressObjectId;
 }
 
 function MapInitFunction(map) {
@@ -240,7 +241,7 @@ function MapInitFunction(map) {
     map.addLayer(gLayer);
 
     // Add Address layer
-    addressLayer = new esri.layers.FeatureLayer(addressLayerURL, {
+    var addressLayer = new esri.layers.FeatureLayer(operationalLayers.Address.LayerURL, {
         mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
         outFields: ["*"],
         id: addressLayerID,
@@ -248,7 +249,7 @@ function MapInitFunction(map) {
     });
 
     // Add Contacts layer
-    contactsLayer = new esri.layers.FeatureLayer(contactsLayerURL, {
+    var contactsLayer = new esri.layers.FeatureLayer(operationalLayers.Contacts.LayerURL, {
         mode: esri.layers.FeatureLayer.MODE_SELECTION,
         outFields: ["*"],
         id: contactsLayerID,

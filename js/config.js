@@ -28,7 +28,7 @@ dojo.declare("js.config", null, {
     //
     // 5.  Specify URL(s) for basemaps                - [ Tag(s) to look for: BaseMapLayers ]
     // 6.  Set initial map extent                     - [ Tag(s) to look for: DefaultExtent ]
-    // 7.  Specify URL(s) for operational layers      - [ Tag(s) to look for: AddressLayer,ContactsLayer]
+    // 7.  Specify URL(s) for operational layers      - [ Tag(s) to look for: Address,Contacts]
     // 8.  Customize data formatting                  - [ Tag(s) to look for: ShowNullValueAs]
     //
     // 9.  Customize address search settings          - [ Tag(s) to look for: LocatorURL, LocatorFields, LocatorDefaultAddress, LocatorMarkupSymbolPath]
@@ -82,17 +82,27 @@ dojo.declare("js.config", null, {
     DefaultExtent: "-9814373,5126542,-9813500,5127198",
 
     // ------------------------------------------------------------------------------------------------------------------------
-
-
-    // ------------------------------------------------------------------------------------------------------------------------
     // OPERATIONAL DATA SETTINGS
+    // ------------------------------------------------------------------------------------------------------------------------
 
     // Configure operational layers
-
-    AddressLayer: "http://services.arcgis.com/b6gLrKHqgkQb393u/ArcGIS/rest/services/CommunityAddressingTryItLive/FeatureServer/0",
-    AddressObjectId: "${OBJECTID}",
-
-    ContactsLayer: "http://services.arcgis.com/b6gLrKHqgkQb393u/ArcGIS/rest/services/CommunityAddressingTryItLive/FeatureServer/1",
+    OperationalLayers: {
+        Address: {
+            LayerURL: "http://services.arcgis.com/b6gLrKHqgkQb393u/ArcGIS/rest/services/CommunityAddressingTryItLive/FeatureServer/0",
+            PrimaryKeyforFeature: "${SITEADDID}",
+            PrimaryKeyPrefixValue: "SID_",
+            PrimaryKeySuffixValue: "${OBJECTID}",
+            ObjectId: "${OBJECTID}"
+        },
+        Contacts: {
+            LayerURL: "http://services.arcgis.com/b6gLrKHqgkQb393u/ArcGIS/rest/services/CommunityAddressingTryItLive/FeatureServer/1",
+            ForeignKeyforAddressLayer: "INTERESTID",
+            UniqueID: "CONTACTID",
+            UniqueIDPrefixValue: "CID_",
+            UniqueIDSuffixValue: "${OBJECTID}",
+            ObjectId: "${OBJECTID}"
+        }
+    },
 
     //We have added relation field for address layer. However we are not displaying/fetching the contact details for an address. So        //the relation field is not required for contacts layer.
 
@@ -142,7 +152,6 @@ dojo.declare("js.config", null, {
         WorkPhoneFieldName: "WORKPHONE",
         CellPhoneFieldName: "CELLPHONE",
         EmailFieldName: "EMAIL",
-        interestIdName: "INTERESTID",
         SmsFieldName: "SMS"
     },
     // ------------------------------------------------------------------------------------------------------------------------
