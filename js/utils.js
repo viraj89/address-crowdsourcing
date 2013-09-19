@@ -309,14 +309,17 @@ function SaveNewContact() {
                     attr[siteAdrId] = siteAddressId;
                     var requestGraphic = new esri.Graphic(mapPoint, null, attr, null);
                     map.getLayer(addressLayerID).applyEdits(null, [requestGraphic], null, function (evt) {
-                        mapPoint = null;
-                        selectedMapPoint = null;
                         if (addResults[0].objectId != -1) {
+                            dojo.byId("imgDirections").style.display = "none";
+                            dojo.byId("tdInfoHeader").innerHTML = "";
+                            dojo.byId("divCreateRequest").style.display = "none";
+                            dojo.byId("divInfoContent").style.display = "block";
+                            dojo.byId("imgContacts").style.display = "none";
+                            dojo.byId("imgDirections").style.display = "none";
                             SaveContact(siteAddressId);
                         } else {
                             alert(messages.getElementsByTagName("unableToSaveData")[0].childNodes[0].nodeValue);
                         }
-                        map.infoWindow.hide();
                         HideProgressIndicator();
                     }, function (err) {
                         alert(messages.getElementsByTagName("unableToUpdateContact")[0].childNodes[0].nodeValue);
@@ -841,6 +844,7 @@ function SetViewDetailsHeight() {
 //Populate address details in infowindow container
 function PopulateInfoDetails(mapPoint, attributes) {
     ShowInfoAddressView();
+    dojo.byId("imgContacts").style.display = "block";
     dojo.byId('divInfoContent').style.display = "block";
     dojo.byId("divInfoDetails").style.display = "block";
     RemoveChildren(dojo.byId('tblInfoDetails'));
