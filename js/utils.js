@@ -302,7 +302,11 @@ function SaveNewContact() {
                     siteAdrId = siteAdrId.split("}")[0];
                     try {
                         siteAddressId = String(operationalLayers.Address.PrimaryKeyPrefixValue + dojo.string.substitute(operationalLayers.Address.PrimaryKeySuffixValue, featureset.features[0].attributes));
+                    if (isNaN(dojo.string.substitute(operationalLayers.Address.ObjectId, featureset.features[0].attributes))) {
                         attr[map.getLayer(addressLayerID).objectIdField] = dojo.string.substitute(operationalLayers.Address.ObjectId, featureset.features[0].attributes);
+                    }
+                    else {
+                        attr[map.getLayer(addressLayerID).objectIdField] = Number(dojo.string.substitute(operationalLayers.Address.ObjectId, featureset.features[0].attributes));
                     } catch (e) {
                         alert(messages.getElementsByTagName("falseConfigParams")[0].childNodes[0].nodeValue);
                     }
@@ -367,7 +371,12 @@ function SaveContact(interestID) {
                 var attr = {};
                 try {
                     attr[operationalLayers.Contacts.UniqueID] = String(operationalLayers.Contacts.UniqueIDPrefixValue + dojo.string.substitute(operationalLayers.Contacts.UniqueIDSuffixValue, featureset.features[0].attributes));
+                    if (isNaN(dojo.string.substitute(operationalLayers.Contacts.ObjectId, featureset.features[0].attributes))) {
                     attr[map.getLayer(contactsLayerID).objectIdField] = dojo.string.substitute(operationalLayers.Contacts.ObjectId, featureset.features[0].attributes);
+                    }
+                    else {
+                        attr[map.getLayer(contactsLayerID).objectIdField] = Number(dojo.string.substitute(operationalLayers.Contacts.ObjectId, featureset.features[0].attributes));
+                    }
                 } catch (e) {
                     alert(messages.getElementsByTagName("falseConfigParams")[0].childNodes[0].nodeValue);
                 }
