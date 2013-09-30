@@ -302,11 +302,11 @@ function SaveNewContact() {
                     siteAdrId = siteAdrId.split("}")[0];
                     try {
                         siteAddressId = String(operationalLayers.Address.PrimaryKeyPrefixValue + dojo.string.substitute(operationalLayers.Address.PrimaryKeySuffixValue, featureset.features[0].attributes));
-                    if (isNaN(dojo.string.substitute(operationalLayers.Address.ObjectId, featureset.features[0].attributes))) {
-                        attr[map.getLayer(addressLayerID).objectIdField] = dojo.string.substitute(operationalLayers.Address.ObjectId, featureset.features[0].attributes);
-                    }
-                    else {
-                        attr[map.getLayer(addressLayerID).objectIdField] = Number(dojo.string.substitute(operationalLayers.Address.ObjectId, featureset.features[0].attributes));
+                        if (isNaN(dojo.string.substitute(operationalLayers.Address.ObjectId, featureset.features[0].attributes))) {
+                            attr[map.getLayer(addressLayerID).objectIdField] = dojo.string.substitute(operationalLayers.Address.ObjectId, featureset.features[0].attributes);
+                        } else {
+                            attr[map.getLayer(addressLayerID).objectIdField] = Number(dojo.string.substitute(operationalLayers.Address.ObjectId, featureset.features[0].attributes));
+                        }
                     } catch (e) {
                         alert(messages.getElementsByTagName("falseConfigParams")[0].childNodes[0].nodeValue);
                     }
