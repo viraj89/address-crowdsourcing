@@ -302,21 +302,28 @@ function SaveNewContact() {
                     siteAdrId = siteAdrId.split("}")[0];
                     try {
                         siteAddressId = String(operationalLayers.Address.PrimaryKeyPrefixValue + dojo.string.substitute(operationalLayers.Address.PrimaryKeySuffixValue, featureset.features[0].attributes));
-                        attr[map.getLayer(addressLayerID).objectIdField] = dojo.string.substitute(operationalLayers.Address.ObjectId, featureset.features[0].attributes);
+                        if (isNaN(dojo.string.substitute(operationalLayers.Address.ObjectId, featureset.features[0].attributes))) {
+                            attr[map.getLayer(addressLayerID).objectIdField] = dojo.string.substitute(operationalLayers.Address.ObjectId, featureset.features[0].attributes);
+                        } else {
+                            attr[map.getLayer(addressLayerID).objectIdField] = Number(dojo.string.substitute(operationalLayers.Address.ObjectId, featureset.features[0].attributes));
+                        }
                     } catch (e) {
                         alert(messages.getElementsByTagName("falseConfigParams")[0].childNodes[0].nodeValue);
                     }
                     attr[siteAdrId] = siteAddressId;
                     var requestGraphic = new esri.Graphic(mapPoint, null, attr, null);
                     map.getLayer(addressLayerID).applyEdits(null, [requestGraphic], null, function (evt) {
-                        mapPoint = null;
-                        selectedMapPoint = null;
                         if (addResults[0].objectId != -1) {
+                            dojo.byId("imgDirections").style.display = "none";
+                            dojo.byId("tdInfoHeader").innerHTML = "";
+                            dojo.byId("divCreateRequest").style.display = "none";
+                            dojo.byId("divInfoContent").style.display = "block";
+                            dojo.byId("imgContacts").style.display = "none";
+                            dojo.byId("imgDirections").style.display = "none";
                             SaveContact(siteAddressId);
                         } else {
                             alert(messages.getElementsByTagName("unableToSaveData")[0].childNodes[0].nodeValue);
                         }
-                        map.infoWindow.hide();
                         HideProgressIndicator();
                     }, function (err) {
                         alert(messages.getElementsByTagName("unableToUpdateContact")[0].childNodes[0].nodeValue);
@@ -364,7 +371,12 @@ function SaveContact(interestID) {
                 var attr = {};
                 try {
                     attr[operationalLayers.Contacts.UniqueID] = String(operationalLayers.Contacts.UniqueIDPrefixValue + dojo.string.substitute(operationalLayers.Contacts.UniqueIDSuffixValue, featureset.features[0].attributes));
+                    if (isNaN(dojo.string.substitute(operationalLayers.Contacts.ObjectId, featureset.features[0].attributes))) {
                     attr[map.getLayer(contactsLayerID).objectIdField] = dojo.string.substitute(operationalLayers.Contacts.ObjectId, featureset.features[0].attributes);
+                    }
+                    else {
+                        attr[map.getLayer(contactsLayerID).objectIdField] = Number(dojo.string.substitute(operationalLayers.Contacts.ObjectId, featureset.features[0].attributes));
+                    }
                 } catch (e) {
                     alert(messages.getElementsByTagName("falseConfigParams")[0].childNodes[0].nodeValue);
                 }
@@ -841,6 +853,7 @@ function SetViewDetailsHeight() {
 //Populate address details in infowindow container
 function PopulateInfoDetails(mapPoint, attributes) {
     ShowInfoAddressView();
+    dojo.byId("imgContacts").style.display = "block";
     dojo.byId('divInfoContent').style.display = "block";
     dojo.byId("divInfoDetails").style.display = "block";
     RemoveChildren(dojo.byId('tblInfoDetails'));
