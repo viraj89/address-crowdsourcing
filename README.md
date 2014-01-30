@@ -4,7 +4,7 @@ The Community Addressing application is a configuration of ArcGIS Server and a J
 
 [Try the Community Addressing application](http://localgovtemplates.esri.com/communityaddressing/)
 
-[![Image of Community Addressing application](https://raw.github.com/Esri/community-addressing/master/community-addressing.png "Community Addressing application")](http://localgovtemplates.esri.com/communityaddressing/)
+[![Image of Community Addressing application](community-addressing.png "Community Addressing application")](http://localgovtemplates.esri.com/communityaddressing/)
 
 ## Features
 
