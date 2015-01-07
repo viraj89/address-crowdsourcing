@@ -31,7 +31,7 @@ Learn more about Esri's [ArcGIS for Local Government maps and apps](http://solut
 
 Show me a list of other [Local Government GitHub repositories](http://esri.github.io/#Local-Government).
 
-This application uses the 3.11 version of [Esri's ArcGIS API for JavaScript](http://help.arcgis.com/en/webapi/javascript/arcgis/); see the site for concepts, samples, and a reference for using the API to create mapping web sites.
+This application uses the 3.5 version of [Esri's ArcGIS API for JavaScript](http://help.arcgis.com/en/webapi/javascript/arcgis/); see the site for concepts, samples, and a reference for using the API to create mapping web sites.
 
 [New to Github? Get started here.](http://htmlpreview.github.com/?https://github.com/Esri/esri.github.com/blob/master/help/esri-getting-to-know-github.html)
 
