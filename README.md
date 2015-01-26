@@ -24,7 +24,7 @@ You'll need to convert to an application in IIS and use the ASP .NET 4.0. applic
 
 **Start now using your own services**
 
-For more information on requirements and publication steps, see [Community Addressing](http://links.esri.com/localgovernment/help/10.2/CommunityAddressing) help.
+For more information on requirements and publication steps, see [Address Crowdsourcing application](http://links.esri.com/localgovernment/help/10.2/CommunityAddressing) help.
 
 ## Resources
 
