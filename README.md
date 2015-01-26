@@ -1,10 +1,12 @@
-# community-addressing
+# address-crowdsourcing (previously community-addressing)
 
-The Community Addressing application is a configuration of ArcGIS and a JavaScript application that allows the general public to contribute missing site address locations and provide citizen contact information for current addresses.  This interactive web application includes a simple tool to review existing addresses and submit new address and contact information.
+The Address Crowdsourcing application (previously named Community Addressing) is a configuration of ArcGIS and a JavaScript application that allows the general public to contribute missing site address locations and provide citizen contact information for current addresses.  This interactive web application includes a simple tool to review existing addresses and submit new address and contact information.
 
-[Try the Community Addressing application](http://links.esri.com/localgovernment/tryit/CommunityAddressing/)
+The application name change happened at the February 2015 release.
 
-[![Image of Community Addressing application](community-addressing.png "Community Addressing application")](http://links.esri.com/localgovernment/tryit/CommunityAddressing/)
+[Try the Address Crowdsourcing application](http://links.esri.com/localgovernment/tryit/CommunityAddressing/)
+
+[![Image of Address Crowdsourcing application](community-addressing.png "Address Crowdsourcing application")](http://links.esri.com/localgovernment/tryit/CommunityAddressing/)
 
 ## Features
 
