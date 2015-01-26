@@ -1,4 +1,5 @@
 # address-crowdsourcing (previously community-addressing)
+(previously community-addressing)
 
 The Address Crowdsourcing application (previously named Community Addressing) is a configuration of ArcGIS and a JavaScript application that allows the general public to contribute missing site address locations and provide citizen contact information for current addresses.  This interactive web application includes a simple tool to review existing addresses and submit new address and contact information.
 
