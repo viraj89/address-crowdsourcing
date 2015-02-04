@@ -5,9 +5,9 @@ The Address Crowdsourcing application (previously named Community Addressing) is
 
 The application name change happened at the February 2015 release.
 
-[Try the Address Crowdsourcing application](http://links.esri.com/localgovernment/tryit/CommunityAddressing/)
+[Try the Address Crowdsourcing application](http://links.esri.com/localgovernment/tryit/AddressCrowdsourcing/)
 
-[![Image of Address Crowdsourcing application](community-addressing.png "Address Crowdsourcing application")](http://links.esri.com/localgovernment/tryit/CommunityAddressing/)
+[![Image of Address Crowdsourcing application](community-addressing.png "Address Crowdsourcing application")](http://links.esri.com/localgovernment/tryit/AddressCrowdsourcing/)
 
 ## Features
 
