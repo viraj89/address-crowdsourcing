@@ -88,14 +88,14 @@ dojo.declare("js.config", null, {
     // Configure operational layers
     OperationalLayers: {
         Address: {
-            LayerURL: "http://services.arcgis.com/b6gLrKHqgkQb393u/ArcGIS/rest/services/CommunityAddressingTryItLive/FeatureServer/0",
+            LayerURL: "http://services.arcgis.com/b6gLrKHqgkQb393u/ArcGIS/rest/services/AddressCrowdsourcingTryItLive/FeatureServer/0",
             PrimaryKeyforFeature: "${SITEADDID}",
             PrimaryKeyPrefixValue: "SID_",
             PrimaryKeySuffixValue: "${OBJECTID}",
             ObjectId: "${OBJECTID}"
         },
         Contacts: {
-            LayerURL: "http://services.arcgis.com/b6gLrKHqgkQb393u/ArcGIS/rest/services/CommunityAddressingTryItLive/FeatureServer/1",
+            LayerURL: "http://services.arcgis.com/b6gLrKHqgkQb393u/ArcGIS/rest/services/AddressCrowdsourcingTryItLive/FeatureServer/1",
             ForeignKeyforAddressLayer: "INTERESTID",
             UniqueID: "CONTACTID",
             UniqueIDPrefixValue: "CID_",
